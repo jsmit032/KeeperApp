@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./Header";
+import Header from "./Heading";
 import Footer from "./Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
