@@ -46,24 +46,17 @@ const [clickedInput, setClickedInput] = useState(false);
           value={note.title}
           placeholder="Title"
         /> : null}
-        {clickedInput ? <textarea
+        <textarea
           name="content"
           onChange={handleChange}
           onClick={handleClick}
           value={note.content}
           placeholder="Take a note..."
-          rows="3" 
-        />: <textarea
-          name="content"
-          onChange={handleChange}
-          onClick={handleClick}
-          value={note.content}
-          placeholder="Take a note..."
-          rows="1" 
-        />}
-        {clickedInput ? <Zoom in={true}>
+          rows={clickedInput ? 3 : 1} 
+        />
+        <Zoom in={clickedInput}>
             <Fab onClick={submitNote}><AddIcon /></Fab>
-        </Zoom> : null}
+        </Zoom>
       </form>
     </div>
   );
