@@ -5,19 +5,23 @@ import Note from "./Note";
 import CreateArea from "./CreateArea";
 
 function App() {
-    
-    const [notes, setNotes] = useState({
-        title: "",
-        content: ""
-      });
+  const [notes, setNotes] = useState({
+    title: "",
+    content: ""
+  });
 
-    function addNote(inputObject, event) {
-        console.log(inputObject);
-        setNotes(prevNote => {
-            return {...prevNote, inputObject};
-        });
-        event.preventDefault();
-    }
+  function addNote(inputObject) {
+    const { title, content } = inputObject;
+    setNotes(prevNote => {
+        return {
+            ...prevNote,
+            "title": title,
+            "content": content
+        }
+    });
+  }
+
+  console.log(notes);
 
   return (
     <div>
