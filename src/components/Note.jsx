@@ -1,12 +1,10 @@
 import React from "react";
 
 function Note(props) {
+  function handleClick() {
+    props.onDelete(props.id);
+  }
 
-    function handleClick(event) {
-        props.onDelete(props.id);
-
-        event.preventDefault();
-    }
   return (
     <div className="note">
       <h1>{props.title}</h1>
