@@ -43,6 +43,13 @@ app.use((err, req, res, next)=>{
 
 // const Note = new mongoose.model('Note', noteSchema);
 
-app.listen(3000, function(){
-    console.log("Server started on port 3000");
-});
+mongoose
+    .connect('mongodb://localhost:27017/noteDB', {useNewUrlParser: true, useUnifiedTopology: true})
+    .then(()=>{
+        app.listen(3000, function(){
+            console.log("Server started on port 3000");
+        });
+    })
+    .catch(err => {
+        console.log(err);
+    });
