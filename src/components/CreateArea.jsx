@@ -39,7 +39,7 @@ const [clickedInput, setClickedInput] = useState(false);
 
   return (
     <div>
-      <form className="create-note">
+      <form className="create-note" method="POST" action="/">
       {clickedInput ? <input
           name="title"
           onChange={handleChange}
