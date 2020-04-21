@@ -14,21 +14,40 @@ const createNote = async (req, res, next) => {
     try {
         await newNote.save();
     } catch (err) {
-        // const error = new HttpError(
-        //     'Creating note failed, please try again.',
-        //     500
-        // );
-        return next(err);
+        const error = new HttpError(
+            'Creating note failed, please try again.',
+            500
+        );
+        return next(error);
     } 
 
-    res.status(201).json({newNote});
+    res.status(201).json({ note: newNote.toObject( {getters: true} )});
 
 };
 
 // // Retrieve all Notes from database
-// exports.findAll = (req, res) => {
+const getNotes = async (req, res, next) => {
+    let notes;
+    try {
+        notes = await Note.find(foundNotes => {return foundNotes});
+    } catch (err) {
+        const error = new HttpError(
+            'Could not find notes',
+            500
+        );
+        return next(error);
+    } 
 
-// };
+    if (!notes || notes.length === 0) {
+        const error = new HttpError (
+            'Note database empty, Could not find notes', 
+            404
+        );
+        return next(error);
+    }
+    
+    res.json({ notes });
+}
 
 // // Find a single Note with an id
 // exports.findOne = (req, res) => {
@@ -46,3 +65,4 @@ const createNote = async (req, res, next) => {
 // };
 
 exports.createNote = createNote;
+exports.getNotes = getNotes;
