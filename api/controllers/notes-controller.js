@@ -50,9 +50,30 @@ const getNotes = async (req, res, next) => {
 }
 
 // // Find a single Note with an id
-// exports.findOne = (req, res) => {
+const getNoteById = async (req, res, next) => {
+    const noteId = req.params.nid;
+    let note;
+    try {
+        note = await Note.findById(noteId);
+    } catch (err) {
+        const error = new HttpError(
+            'Could not find a note.', 
+            500
+        );
+        return next(error);
+    }
 
-// };
+    if (!note) {
+        const error = new HttpError(
+            'Could not find a note by the provided id.', 
+            404
+        );
+        return next(error);
+    }
+
+    res.json({ note: note.toObject( {getters: true}) });
+    
+}
 
 // // Update a Note by the id
 // exports.update = (req, res) => {
@@ -66,3 +87,4 @@ const getNotes = async (req, res, next) => {
 
 exports.createNote = createNote;
 exports.getNotes = getNotes;
+exports.getNoteById = getNoteById;

@@ -9,5 +9,8 @@ module.exports = app => {
     // Get all Notes in Database
     router.get("/", notes.getNotes);
 
+    // Get Note by ID
+    router.get("/:nid", notes.getNoteById);
+
     app.use('/api/notes', router);
 };
