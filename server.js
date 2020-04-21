@@ -32,17 +32,6 @@ app.use((err, req, res, next)=>{
     res.json({message: err.message || "An unknown error occured!"});
 });
 
-//// Configure Mongo
-// mongoose.connect('mongodb://localhost:27017/noteDB', {useNewUrlParser: true, useUnifiedTopology: true});
-// mongoose.set('useCreateIndex', true);
-
-// const noteSchema = new mongoose.Schema({
-//     title: String,
-//     content: String
-// });
-
-// const Note = new mongoose.model('Note', noteSchema);
-
 mongoose
     .connect('mongodb://localhost:27017/noteDB', {useNewUrlParser: true, useUnifiedTopology: true})
     .then(()=>{
