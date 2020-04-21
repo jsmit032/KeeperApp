@@ -76,9 +76,35 @@ const getNoteById = async (req, res, next) => {
 }
 
 // // Update a Note by the id
-// exports.update = (req, res) => {
+const updateNote = async (req, res, next) => {
+    const noteId = req.params.nid;
+    const { title, content } = req.body;
 
-// };
+    let note;
+    try {
+        note = await Note.findById(noteId);
+    } catch (err) {
+        const error = new HttpError(
+            'Could not update note',
+            500
+        );
+        return next(error);
+    }
+    note.title = title;
+    note.content = content;
+
+    try {
+        await note.save();
+    } catch (err) {
+        const error = new HttpError(
+            'Could not save note to database',
+            500
+        );
+        return next(error);
+    }
+
+    res.status(200).json({note: note.toObject({ getters: true }) });
+}
 
 // // Delete a Note by the id
 // exports.delete = (req, res) => {
@@ -88,3 +114,4 @@ const getNoteById = async (req, res, next) => {
 exports.createNote = createNote;
 exports.getNotes = getNotes;
 exports.getNoteById = getNoteById;
+exports.updateNote = updateNote;

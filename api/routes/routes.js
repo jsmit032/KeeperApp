@@ -12,5 +12,8 @@ module.exports = app => {
     // Get Note by ID
     router.get("/:nid", notes.getNoteById);
 
+    // Update Note by ID
+    router.patch("/:nid", notes.updateNote);
+
     app.use('/api/notes', router);
 };
