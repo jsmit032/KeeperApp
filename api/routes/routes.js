@@ -15,5 +15,8 @@ module.exports = app => {
     // Update Note by ID
     router.patch("/:nid", notes.updateNote);
 
+    // Delete Note by ID
+    router.delete("/:nid", notes.deleteNote);
+
     app.use('/api/notes', router);
 };

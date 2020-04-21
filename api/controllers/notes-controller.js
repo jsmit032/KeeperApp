@@ -107,11 +107,23 @@ const updateNote = async (req, res, next) => {
 }
 
 // // Delete a Note by the id
-// exports.delete = (req, res) => {
-
-// };
+const deleteNote = async (req, res, next) => {
+    const noteId = req.params.nid;
+    let note;
+    try {
+        note = await Note.findByIdAndRemove(noteId);
+    } catch (err) {
+        const error = new HttpError(
+            'Could not delete note from database',
+            500
+        );
+        return next(error);
+    }
+    res.status(200).json({message: 'Deleted note!'});
+}
 
 exports.createNote = createNote;
 exports.getNotes = getNotes;
 exports.getNoteById = getNoteById;
 exports.updateNote = updateNote;
+exports.deleteNote = deleteNote;
