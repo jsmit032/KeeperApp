@@ -6,7 +6,7 @@ const ejs = require('ejs');
 const mongoose = require('mongoose');
 
 const app = express();
-const db = require("./models");
+const db = require("./api/models");
 
 app.set('view engine', 'ejs');
 
@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
     res.json({message: "Welcome to the Keeper App."});
 });
 
-require("./routes/routes")(app);
+require("./api/routes/routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
