@@ -2,7 +2,6 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const ejs = require('ejs');
 const mongoose = require('mongoose');
 
 const app = express();
@@ -36,7 +35,7 @@ app.get("/", (req, res) => {
 require("./api/routes/routes")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, function(){
     console.log(`Server is running on port ${PORT}.`);
   });
