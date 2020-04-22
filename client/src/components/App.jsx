@@ -8,16 +8,12 @@ import NoteDataService from '../services/note-service';
 
 function App() {
   const [notes, setNotes] = useState([]);
+  console.log(NoteDataService);
 
   function addNote(newNote) {
-    // NoteDataService.create(newNote)
-    //   .then(response => {
-    //     setNotes(prevNotes => {
-    //   //return [...prevNotes, newNote];
-    //     }
     NoteDataService.create(newNote)
-      .then(response => {
-        console.log(response.newNote);
+      .then(() => {
+        console.log(newNote);
       })
       .catch(error => {
         console.log(error);
