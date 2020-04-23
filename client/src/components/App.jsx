@@ -1,19 +1,57 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+
 import Header from "./Header";
 import Footer from "./Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
 import NoteDataService from '../services/note-service';
 
+
 function App() {
   const [notes, setNotes] = useState([]);
-  console.log(NoteDataService);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    async function getNotes() {
+      setIsLoading(true);
+      try {
+      const response = await NoteDataService.getAll();
+
+      const responseData = await response.data;
+      console.log(responseData);
+
+      setNotes(responseData.notes);
+      } catch (err) {
+        console.log(err);
+      }
+      setIsLoading(false);
+    };
+    getNotes();
+  }, []);
+
+  function getNotes () {
+    NoteDataService.getAll()
+      .then((response) => {
+        const {notes} = response.data;
+        //console.log(notes);
+        setNotes(() => {
+          return {
+            notes
+          }
+        });
+        console.log("data recieved!");
+        console.log(notes);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   function addNote(newNote) {
     NoteDataService.create(newNote)
       .then(() => {
         console.log(newNote);
+        getNotes();
       })
       .catch(error => {
         console.log(error);
@@ -29,11 +67,10 @@ function App() {
   }
 
   return (
-    <Router>
       <div>
         <Header />
         <CreateArea onAdd={addNote} />
-        {notes.map((noteItem, index) => {
+        {!isLoading && notes.map((noteItem, index) => {
           return (
             <Note
               key={index}
@@ -43,10 +80,9 @@ function App() {
               onDelete={deleteNote}
             />
           );
-        })}
+        }) }
         <Footer />
       </div>
-    </Router>
   );
 }
 

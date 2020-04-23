@@ -1,9 +1,7 @@
 const Note = require("../models/notes-model");
 const HttpError = require('../models/http-error');
-// const db = require("../models");
-// // const Note = db.notes;
 
-//Create and Save a new Note
+// //Create and Save a new Note
 const createNote = async (req, res, next) => {
     const { title, content } = req.body;
     const newNote = new Note ({

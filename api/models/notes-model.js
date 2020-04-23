@@ -1,21 +1,3 @@
-// const mongoose = require("mongoose");
-
-// const noteSchema = mongoose.Schema(
-//     {
-//         title: {type: String, required: true},
-//         content: {type: String, required: true}
-//     }
-// )
-
-// noteSchema.method("toJSON", function() {
-//     const { __v, _id, ...object } = this.toObject();
-//     object.id = _id;
-//     return object;
-// });
-
-// module.export = new mongoose.model('Note', noteSchema);
-
-
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
