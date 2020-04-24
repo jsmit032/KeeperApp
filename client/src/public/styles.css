@@ -101,3 +101,9 @@ form.create-note button {
   cursor: pointer;
   outline: none;
 }
+.center {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

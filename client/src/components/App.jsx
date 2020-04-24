@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
 import NoteDataService from '../services/note-service';
+import LoadingSpinner from '../components/UIElements/LoadingSpinner';
 
 import '../public/styles.css';
 
@@ -55,6 +56,11 @@ function App() {
       <div>
         <Header />
         <CreateArea onAdd={addNote} />
+        {isLoading && (
+          <div className="center">
+            <LoadingSpinner />
+          </div>
+        )}
         {!isLoading && notes.map((noteItem, index) => {
           return (
             <Note
