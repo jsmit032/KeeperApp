@@ -6,6 +6,8 @@ import Note from "./Note";
 import CreateArea from "./CreateArea";
 import NoteDataService from '../services/note-service';
 
+import '../public/styles.css';
+
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -48,14 +50,6 @@ function App() {
         console.log(error);
       })
   };
-
-  // function deleteNote(id) {
-  //   setNotes(prevNotes => {
-  //     return prevNotes.filter((noteItem, index) => {
-  //       return index !== id;
-  //     });
-  //   });
-  // };
 
   return (
       <div>
