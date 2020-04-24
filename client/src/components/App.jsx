@@ -37,15 +37,25 @@ function App() {
       .catch(error => {
         console.log(error);
       });
-    }
+    };
 
   function deleteNote(id) {
-    setNotes(prevNotes => {
-      return prevNotes.filter((noteItem, index) => {
-        return index !== id;
-      });
-    });
-  }
+    NoteDataService.delete(id)
+      .then(()=> {
+        displayNotes();
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  };
+
+  // function deleteNote(id) {
+  //   setNotes(prevNotes => {
+  //     return prevNotes.filter((noteItem, index) => {
+  //       return index !== id;
+  //     });
+  //   });
+  // };
 
   return (
       <div>
@@ -55,7 +65,7 @@ function App() {
           return (
             <Note
               key={index}
-              id={index}
+              id={noteItem._id}
               title={noteItem.title}
               content={noteItem.content}
               onDelete={deleteNote}
