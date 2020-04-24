@@ -11,47 +11,28 @@ function App() {
   const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    async function getNotes() {
-      setIsLoading(true);
-      try {
+  const displayNotes = async () => {
+    setIsLoading(true);
+    try {
       const response = await NoteDataService.getAll();
-
       const responseData = await response.data;
-      console.log(responseData);
 
       setNotes(responseData.notes);
-      } catch (err) {
-        console.log(err);
-      }
-      setIsLoading(false);
-    };
-    getNotes();
-  }, []);
+    } catch (err) {
+      console.log(err);
+    }
+    setIsLoading(false);
+  };
 
-  function getNotes () {
-    NoteDataService.getAll()
-      .then((response) => {
-        const {notes} = response.data;
-        //console.log(notes);
-        setNotes(() => {
-          return {
-            notes
-          }
-        });
-        console.log("data recieved!");
-        console.log(notes);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  useEffect(() => {
+    displayNotes();
+  }, []);
 
   function addNote(newNote) {
     NoteDataService.create(newNote)
       .then(() => {
         console.log(newNote);
-        getNotes();
+        displayNotes();
       })
       .catch(error => {
         console.log(error);

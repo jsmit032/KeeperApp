@@ -9,9 +9,7 @@ function CreateArea(props) {
     title: "",
     content: ""
   });
-
-const [clickedInput, setClickedInput] = useState(false);
- 
+  const [clickedInput, setClickedInput] = useState(false);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -27,6 +25,8 @@ const [clickedInput, setClickedInput] = useState(false);
   function handleClick() {
       setClickedInput(true);
   }
+
+    //console.log(getNotes());
 
   function submitNote(event) {
     props.onAdd(note);

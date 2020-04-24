@@ -1,8 +1,8 @@
 import http from "../http-common";
 
 class NoteDataService {
-    getAll() {
-        return http.get("/notes");
+    async getAll() {
+        return await http.get("/notes");
     }
 
     get(id) {
