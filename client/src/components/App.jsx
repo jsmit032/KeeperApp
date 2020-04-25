@@ -7,7 +7,7 @@ import CreateArea from "./CreateArea";
 import NoteDataService from '../services/note-service';
 import LoadingSpinner from '../components/UIElements/LoadingSpinner';
 
-import '../public/styles.css';
+import '../components/App.css';
 
 
 function App() {
