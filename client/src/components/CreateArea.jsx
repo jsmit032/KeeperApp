@@ -34,7 +34,11 @@ function CreateArea(props) {
   }
 
   function handleClick() {
-    setClickedInput(true);
+    if (props.editNote.isEditing === true) {
+      setClickedInput(false);
+    } else {
+      setClickedInput(true);
+    }
   }
 
   function updateNote(event) {
