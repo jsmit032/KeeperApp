@@ -7,9 +7,6 @@ function Note(props) {
   function handleClick() {
     props.onDelete(props.id);
   }
-  // function editNote() {
-  //   props.onUpdate(props);
-  // }
 
   function getContent() {
     props.callback(props);

@@ -25,20 +25,23 @@ function CreateArea(props) {
 
   function handleClick() {
     if (props.editNote.isEditing === true) {
-      setClickedInput(false)
+      setClickedInput(false);
     } else {
       setClickedInput(true);
     }
   }
 
   function updateNote(event) {
-    console.log("This is the update Submit");
+    props.onEdit(note);
+    setNote({
+      title: "",
+      content: ""
+    });
     event.preventDefault();
   }
 
   function submitNote(event) {
     props.onAdd(note);
-    console.log(props.onAdd(note));
     setNote({
       title: "",
       content: ""
@@ -54,8 +57,8 @@ function CreateArea(props) {
       {props.editNote.isEditing ? <input
           name="title"
           onChange={handleChange}
-          value={props.editNote.title}
-          placeholder="Title"
+          value={note.title}
+          placeholder={props.editNote.title}
         /> : null || clickedInput ? <input
           name="title"
           onChange={handleChange}
@@ -66,8 +69,8 @@ function CreateArea(props) {
           name="content"
           onChange={handleChange}
           onClick={handleClick}
-          value={props.editNote.isEditing ? props.editNote.content : note.content}
-          placeholder="Take a note..."
+          value={ note.content }
+          placeholder= { props.editNote.isEditing ? props.editNote.content : "Take a note..." }
           rows={clickedInput || props.editNote.isEditing ? 3 : 1} 
         />
         <Zoom in={clickedInput || props.editNote.isEditing}>
@@ -77,10 +80,6 @@ function CreateArea(props) {
       </form>
     </div>
   );
-}
-
-CreateArea.defaultProps = {
-  editNote: false
 }
 
 export default CreateArea;

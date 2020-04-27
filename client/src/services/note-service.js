@@ -14,7 +14,7 @@ class NoteDataService {
     }
 
     update(id, data) {
-        return http.put(`/notes/${id}`, data);
+        return http.patch(`/notes/${id}`, data);
     }
 
     delete(id) {
