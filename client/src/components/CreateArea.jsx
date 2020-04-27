@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Zoom from '@material-ui/core/Zoom';
@@ -12,6 +12,16 @@ function CreateArea(props) {
   });
   const [clickedInput, setClickedInput] = useState(false);
 
+  useEffect(() => {
+    if (props.editNote.isEditing === true) {
+      setClickedInput(false);
+      setNote({
+        title: "",
+        content: ""
+      });
+    }
+  }, [props.editNote.isEditing]); 
+  
   function handleChange(event) {
     const { name, value } = event.target;
 
@@ -24,14 +34,11 @@ function CreateArea(props) {
   }
 
   function handleClick() {
-    if (props.editNote.isEditing === true) {
-      setClickedInput(false);
-    } else {
-      setClickedInput(true);
-    }
+    setClickedInput(true);
   }
 
   function updateNote(event) {
+    setClickedInput(false);
     props.onEdit(note);
     setNote({
       title: "",
