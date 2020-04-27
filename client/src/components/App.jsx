@@ -13,7 +13,7 @@ import '../components/App.css';
 function App() {
   const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [editingNote, setEditingNote] = useState([]);
+  const [editingNote, setEditingNote] = useState();
 
   // define Callback function in Parent and send it as props to Child1
   function getNoteData(params) {
@@ -22,7 +22,8 @@ function App() {
       return {
         id,
         title,
-        content
+        content,
+        isEditing: true
       }
     });
   }
