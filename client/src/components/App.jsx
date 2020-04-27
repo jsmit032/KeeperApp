@@ -9,7 +9,6 @@ import LoadingSpinner from '../components/UIElements/LoadingSpinner';
 
 import '../components/App.css';
 
-
 function App() {
   const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
