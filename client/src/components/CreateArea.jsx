@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Zoom from '@material-ui/core/Zoom';
@@ -10,6 +10,10 @@ function CreateArea(props) {
     content: ""
   });
   const [clickedInput, setClickedInput] = useState(false);
+
+  useEffect(() => {
+    console.log(props);
+  }, []);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -26,10 +30,14 @@ function CreateArea(props) {
       setClickedInput(true);
   }
 
-    //console.log(getNotes());
+  // function updateNote(event) {
+  //   // called once '+' is clicked to update Note
+  //   event.preventDefault();
+  // }
 
   function submitNote(event) {
     props.onAdd(note);
+    console.log(props.onAdd(note));
     setNote({
       title: "",
       content: ""
@@ -37,7 +45,6 @@ function CreateArea(props) {
     setClickedInput(false);
     event.preventDefault();
   }
-
   return (
     <div>
       <form className="create-note">
@@ -56,7 +63,7 @@ function CreateArea(props) {
           rows={clickedInput ? 3 : 1} 
         />
         <Zoom in={clickedInput}>
-            <Fab onClick={submitNote}><AddIcon /></Fab>
+            <Fab onClick={ submitNote }><AddIcon /></Fab>
         </Zoom>
       </form>
     </div>

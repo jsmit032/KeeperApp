@@ -13,6 +13,19 @@ import '../components/App.css';
 function App() {
   const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [editingNote, setEditingNote] = useState([]);
+
+  // define Callback function in Parent and send it as props to Child1
+  function getNoteData(params) {
+    const { id, title, content } = params;
+    setEditingNote(() => {
+      return {
+        id,
+        title,
+        content
+      }
+    });
+  }
 
   const displayNotes = async () => {
     setIsLoading(true);
@@ -52,10 +65,15 @@ function App() {
       })
   };
 
+  function editNote(note) {
+    console.log(note);
+  }
+
+
   return (
       <div>
         <Header />
-        <CreateArea onAdd={addNote} />
+        <CreateArea onAdd={addNote} onEdit={editNote} editNote={editingNote}/>
         {isLoading && (
           <div className="center">
             <LoadingSpinner />
@@ -69,6 +87,8 @@ function App() {
               title={noteItem.title}
               content={noteItem.content}
               onDelete={deleteNote}
+              onUpdate={editNote} // getting editNote from Note.jsx
+              callback={getNoteData}
             />
           );
         }) }
