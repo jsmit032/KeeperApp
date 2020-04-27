@@ -24,7 +24,11 @@ function CreateArea(props) {
   }
 
   function handleClick() {
+    if (props.editNote.isEditing === true) {
+      setClickedInput(false)
+    } else {
       setClickedInput(true);
+    }
   }
 
   function updateNote(event) {
@@ -47,28 +51,28 @@ function CreateArea(props) {
   return (
     <div>
       <form className="create-note">
-      {clickedInput ? <input
-          name="title"
-          onChange={handleChange}
-          value={note.title}
-          placeholder="Title"
-        /> : null || clickedInput && props.editNote.isEditing ? <input
+      {props.editNote.isEditing ? <input
           name="title"
           onChange={handleChange}
           value={props.editNote.title}
+          placeholder="Title"
+        /> : null || clickedInput ? <input
+          name="title"
+          onChange={handleChange}
+          value={note.title}
           placeholder="Title"
         /> : null }
         <textarea
           name="content"
           onChange={handleChange}
           onClick={handleClick}
-          value={note.content}
+          value={props.editNote.isEditing ? props.editNote.content : note.content}
           placeholder="Take a note..."
-          rows={clickedInput ? 3 : 1} 
+          rows={clickedInput || props.editNote.isEditing ? 3 : 1} 
         />
-        <Zoom in={clickedInput}>
-            <Fab onClick={ clickedInput && props.editNote.isEditing ? updateNote : submitNote
-  || clickedInput ? submitNote : null }><AddIcon /></Fab>
+        <Zoom in={clickedInput || props.editNote.isEditing}>
+            <Fab onClick={ clickedInput ? submitNote : null ||
+            props.editNote.isEditing ? updateNote : null}><AddIcon /></Fab>
         </Zoom>
       </form>
     </div>
