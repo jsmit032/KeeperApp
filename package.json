@@ -22,7 +22,9 @@
   "scripts": {
     "start": "react-scripts start",
     "client": "cd client && npm start",
-    "dev": "concurrently -n 'server, client' -c 'red.bold,green.bold' \"nodemon server.js\" \"npm run client\"",
+    "server": "nodemon server.js",
+    "dev": "concurrently -n 'server, client' -c 'red.bold,green.bold' \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
