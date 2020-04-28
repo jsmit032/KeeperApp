@@ -78,11 +78,17 @@ function App() {
       })
   }
 
+  function cancelInput() {
+    if (editingNote.isEditing === true) {
+      setEditingNote(false);
+    } 
+  }
+
 
   return (
       <div>
         <Header />
-        <CreateArea onAdd={addNote} onEdit={editNote} editNote={editingNote}/>
+        <CreateArea onAdd={addNote} onEdit={editNote} editNote={editingNote} onCancel={cancelInput}/>
         {isLoading && (
           <div className="center">
             <LoadingSpinner />

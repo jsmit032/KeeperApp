@@ -87,10 +87,7 @@
     font-family: inherit;
     resize: none;
   }
-  form.create-note button {
-    position: absolute;
-    right: 18px;
-    bottom: -18px;
+  form.create-note div button {
     background: #f5ba13;
     color: #fff;
     border: none;
@@ -100,6 +97,16 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     outline: none;
+  }
+  .submitInput {
+    position: absolute;
+    right: 18px;
+    bottom: -18px;
+  }
+  .cancelInput {
+    position: absolute;
+    right: 60px;
+    bottom: -18px;
   }
   .center {
     text-align: center;

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import AddIcon from '@material-ui/icons/Add';
+import CloseIcon from '@material-ui/icons/Close';
 import Fab from '@material-ui/core/Fab';
 import Zoom from '@material-ui/core/Zoom';
-
-//import NoteDataService from '../services/note-service';
 
 function CreateArea(props) {
   const [note, setNote] = useState({
@@ -11,6 +10,7 @@ function CreateArea(props) {
     content: ""
   });
   const [clickedInput, setClickedInput] = useState(false);
+  
 
   useEffect(() => {
     if (props.editNote.isEditing === true) {
@@ -61,6 +61,22 @@ function CreateArea(props) {
     event.preventDefault();
   }
 
+  function cancelInput() {
+    if (props.editNote.isEditing === true) {
+      props.onCancel();
+      setNote({
+        title: "",
+        content: ""
+      });
+    } else if (clickedInput === true) {
+      setNote({
+        title: "",
+        content: ""
+      });
+      setClickedInput(false);
+    }
+  }
+
 
   return (
     <div>
@@ -84,10 +100,13 @@ function CreateArea(props) {
           placeholder= { props.editNote.isEditing ? props.editNote.content : "Take a note..." }
           rows={clickedInput || props.editNote.isEditing ? 3 : 1} 
         />
-        <Zoom in={clickedInput || props.editNote.isEditing}>
+        <div className="submitInput"><Zoom in={clickedInput || props.editNote.isEditing}>
             <Fab onClick={ clickedInput ? submitNote : null ||
             props.editNote.isEditing ? updateNote : null}><AddIcon /></Fab>
-        </Zoom>
+        </Zoom></div>
+        <div className="cancelInput"><Zoom in={clickedInput || props.editNote.isEditing}>
+          <Fab onClick={cancelInput}><CloseIcon /></Fab>
+        </Zoom></div>
       </form>
     </div>
   );
