@@ -11,7 +11,7 @@ const path = require('path');
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json()); // required to submit to api
+app.use(bodyParser.json());
 //Static file 
 app.use(express.static(path.join(__dirname, 'client/build')));
 //app.use(express.static('public'));
@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 require("./api/routes/routes")(app);
 
 //production mode
-if(process.env.NODE_ENV === 'production') {  
+if (process.env.NODE_ENV === 'production') {  
     app.use(express.static(path.join(__dirname, 'client/build')));  
     app.get('*', (req, res) => {    
         res.sendfile(path.join(__dirname = 'client/build/index.html'));  
@@ -47,12 +47,6 @@ if(process.env.NODE_ENV === 'production') {
 
 //build 
 app.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
-
-// set port, listen for requests
-// const PORT = process.env.PORT || 8080;
-// app.listen(PORT, function(){
-//     console.log(`Server is running on port ${PORT}.`);
-//   });
 
 //start 
 const PORT = process.env.PORT || 8080;
