@@ -1,26 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 import Fab from '@material-ui/core/Fab';
 import Zoom from '@material-ui/core/Zoom';
 
 function CreateArea(props) {
-  const [note, setNote] = useState({
-    title: "",
-    content: ""
-  });
+  const blankNote = { title:"", content:"" };
+  const [note, setNote] = useState(blankNote);
   const [clickedInput, setClickedInput] = useState(false);
-  
-
-  useEffect(() => {
-    if (props.editNote.isEditing === true) {
-      setClickedInput(false);
-      setNote({
-        title: "",
-        content: ""
-      });
-    }
-  }, [props.editNote.isEditing]); 
   
   function handleChange(event) {
     const { name, value } = event.target;
@@ -34,29 +21,21 @@ function CreateArea(props) {
   }
 
   function handleClick() {
-    if (props.editNote.isEditing === true) {
-      setClickedInput(false);
-    } else {
-      setClickedInput(true);
-    }
+    props.editNote.isEditing === true
+      ? setClickedInput(false)
+      : setClickedInput(true);
   }
 
   function updateNote(event) {
     setClickedInput(false);
     props.onEdit(note);
-    setNote({
-      title: "",
-      content: ""
-    });
+    setNote(blankNote);
     event.preventDefault();
   }
 
   function submitNote(event) {
     props.onAdd(note);
-    setNote({
-      title: "",
-      content: ""
-    });
+    setNote(blankNote);
     setClickedInput(false);
     event.preventDefault();
   }
@@ -64,15 +43,9 @@ function CreateArea(props) {
   function cancelInput() {
     if (props.editNote.isEditing === true) {
       props.onCancel();
-      setNote({
-        title: "",
-        content: ""
-      });
+      setNote(blankNote);
     } else if (clickedInput === true) {
-      setNote({
-        title: "",
-        content: ""
-      });
+      setNote(blankNote);
       setClickedInput(false);
     }
   }
@@ -81,16 +54,11 @@ function CreateArea(props) {
   return (
     <div>
       <form className="create-note">
-      {props.editNote.isEditing ? <input
+      {props.editNote.isEditing || clickedInput ? <input
           name="title"
           onChange={handleChange}
           value={note.title}
-          placeholder={props.editNote.title}
-        /> : null || clickedInput ? <input
-          name="title"
-          onChange={handleChange}
-          value={note.title}
-          placeholder="Title"
+          placeholder={props.editNote.isEditing ? props.editNote.title : "Title"}
         /> : null }
         <textarea
           name="content"
@@ -100,12 +68,19 @@ function CreateArea(props) {
           placeholder= { props.editNote.isEditing ? props.editNote.content : "Take a note..." }
           rows={clickedInput || props.editNote.isEditing ? 3 : 1} 
         />
-        <div className="submitInput"><Zoom in={clickedInput || props.editNote.isEditing}>
+        <div className="submitInput">
+          <Zoom in={clickedInput || props.editNote.isEditing}>
             <Fab onClick={ clickedInput ? submitNote : null ||
-            props.editNote.isEditing ? updateNote : null}><AddIcon /></Fab>
-        </Zoom></div>
-        <div className="cancelInput"><Zoom in={clickedInput || props.editNote.isEditing}>
-          <Fab onClick={cancelInput}><CloseIcon /></Fab>
+            props.editNote.isEditing ? updateNote : null}>
+              <AddIcon />
+            </Fab>
+          </Zoom>
+        </div>
+        <div className="cancelInput">
+          <Zoom in={clickedInput || props.editNote.isEditing}>
+            <Fab onClick={cancelInput}>
+              <CloseIcon />
+            </Fab>
         </Zoom></div>
       </form>
     </div>
