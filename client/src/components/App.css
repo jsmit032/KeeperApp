@@ -14,14 +14,28 @@
   
   header {
     background-color: #f5ba13;
+    color: #fff;
+    font-family: "McLaren", light;
     margin: auto -16px;
     padding: 16px 32px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   }
+
+  header nav ul {
+    list-style: none;
+    display: flex;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    margin: auto -16px;
+    padding: 16px 32px;
+  }
+
+  header nav ul li {
+    padding: 5px;
+  }
   
   header h1 {
-    color: #fff;
-    font-family: "McLaren", cursive;
     font-weight: 200;
   }
   
