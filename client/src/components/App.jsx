@@ -65,7 +65,6 @@ function App() {
       })
   };
 
-  // update(id, data)
   function editNote(editedNote) {
     const id = editingNote.id;
     NoteDataService.update(id, editedNote)
@@ -102,7 +101,7 @@ function App() {
               title={noteItem.title}
               content={noteItem.content}
               onDelete={deleteNote}
-              onUpdate={editNote} // getting editNote from Note.jsx
+              onUpdate={editNote}
               callback={getNoteData}
             />
           );

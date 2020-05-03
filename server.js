@@ -1,26 +1,40 @@
 //jshint esversion:6
+require('dotenv').config()
 
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
-const app = express();
-const db = require("./api/models");
+const session = require('express-session');
+const passport = require('passport');
 const path = require('path');
 
-app.set('view engine', 'ejs');
+//Configure mongoose's promise to global promise
+const db = require("./api/models");
 
+// Init app
+const app = express();
+
+// Config app
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-//Static file 
 app.use(express.static(path.join(__dirname, 'client/build')));
-//app.use(express.static('public'));
 
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Config Mongoose
 db.mongoose
     .connect(process.env.MONGODB_URI || db.url, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: false
+        useFindAndModify: false,
+        useCreateIndex: true
     })
     .then(() => {
         console.log("Connected to the database!");
@@ -30,12 +44,12 @@ db.mongoose
         process.exit();
     });
 
-// simple route
-app.get("/", (req, res) => {
-    res.json({message: "Welcome to the Keeper App."});
-});
-
+// Models & routes
+require('./api/models/users-model');
+require("./api/config/passport");
 require("./api/routes/routes")(app);
+require("./api/routes/users")(app);
+
 
 //production mode
 if (process.env.NODE_ENV === 'production') {  

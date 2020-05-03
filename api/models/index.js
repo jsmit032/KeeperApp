@@ -8,6 +8,6 @@ const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.notes = require("./notes-model")(mongoose);
-// db.notes = require("./notes-model");
+db.users = require("./users-model")(mongoose);
 
 module.exports = db;
