@@ -6,6 +6,9 @@ module.exports = app => {
     // Register a new User
     router.post("/register", users.registerUser);
 
+    // Login a User
+    router.post("/login", users.loginUser);
+
     // Get all Users
     router.get("/", users.getUsers);
 

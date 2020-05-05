@@ -10,7 +10,7 @@ const HttpError = require("../models/http-error");
 // Doesn't add notes to User yet
 const registerUser = async (req, res, next) => {
     const { email, password  } = req.body;   
-    User.register({ username: email }, password, function(err, user){
+    User.register({ username: email, notes: "NOTES!" }, password, function(err, user){
         if (err) {
             console.log(err);
         } else {
@@ -19,6 +19,34 @@ const registerUser = async (req, res, next) => {
     })
 
 }
+
+const loginUser = async (req, res, next) => {
+    const { email, password } = req.body;
+    let user;
+    try {
+        user = await User.findOne({ username: email });
+    } catch (err) {
+        console.log(err);
+        return next(err);
+    }
+
+    req.logIn(user, function(err){
+        res.json({
+            message: 'Logged in!',
+            user: user.toObject({ getters: true })
+          });
+        // try {
+        //     passport.authenticate("local")(req, res, function(){
+        //         res.json({message: "Logged In!"});
+        //     });
+        // } catch (err) {
+        //     console.log(err);
+        //     return next(err);
+        // }
+    });
+      
+}
+
 
 const getUsers = async (req, res, next) => {
     let users;
@@ -43,4 +71,5 @@ const getUsers = async (req, res, next) => {
 }
 
 exports.registerUser = registerUser;
+exports.loginUser = loginUser;
 exports.getUsers = getUsers;
