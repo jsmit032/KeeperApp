@@ -10,7 +10,7 @@ const HttpError = require("../models/http-error");
 // Doesn't add notes to User yet
 const registerUser = async (req, res, next) => {
     const { email, password  } = req.body;   
-    User.register({ username: email, notes: "NOTES!" }, password, function(err, user){
+    User.register({ username: email, notes: [] }, password, function(err, user){
         if (err) {
             console.log(err);
         } else {

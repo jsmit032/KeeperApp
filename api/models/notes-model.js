@@ -7,7 +7,8 @@ const Schema = mongoose.Schema;
 // { type: mongoose.Types.ObjectId, required: true, ref: 'User' }
 const notesSchema = new Schema({
     title: { type: String, required: true},
-    content: { type: String, required: true}
+    content: { type: String, required: true},
+    creator: { type: mongoose.Types.ObjectId, required: true, ref: 'Users' }
 });
 
 module.exports = mongoose.model('Note', notesSchema);
